@@ -1,0 +1,106 @@
+#!/bin/bash
+
+# VARIABLES
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+source $SCRIPT_DIR/../.env
+# DIRECTORIES
+
+tmpdir=$(mktemp -d)
+
+if [[ ! "$tmpdir" || ! -d "$tmpdir" ]]; then
+    echo "Could not create temporary directory!"
+    exit 1
+fi
+
+trap cleanup EXIT
+function cleanup() {
+    rm -rf "$tmpdir"
+}
+
+set -e
+
+# INSTALLATION SCRIPT
+
+if ! pacman -Qi "base-devel" > /dev/null 2>&1; then
+    echo "'base-devel' not found, installing..."
+    sudo pacman -Sy base-devel
+fi
+
+if ! pacman -Qi "paru" > /dev/null 2>&1; then
+    echo "'paru' not found, installing..."
+    pushd "$tmpdir"
+    git clone https://aur.archlinux.org/paru-bin.git
+    pushd "$tempdir/paru-bin"
+    makepkg -si
+    paru --gendb
+    echo "Successfully installed 'paru'"
+fi
+
+function is_installed() {
+    paru -Qi $1 > /dev/null 2>&1
+}
+
+# Paru Maybe Install
+function pmu() {
+    if ! is_installed $1; then
+        echo "'$1' not found, installing..."
+        paru -Sy $1
+    fi
+}
+
+pmu "python"
+pmu "luarocks"
+pmu "ocaml"
+pmu "openssh"
+pmu "pfetch"
+pmu "gnupg"
+
+if ! is_installed "rustup"; then
+    echo "'rustup' not found, installing..."
+    paru -Sy rustup
+    rustup install nightly
+else
+    rustup update
+fi
+
+if ! is_installed "opam"; then
+    echo "'opam' not found, installing..."
+    paru -Sy opam
+    echo "'opam' not initialized, initializing..."
+    opam init
+fi
+
+pushd "$DOTFILES_DIR" > /dev/null
+
+while read raw; do
+    file=$(eval echo $raw)
+    if ! [[ -f $file || -d $file ]]; then
+        echo "Linking '$(basename $file)..."
+        ln -s "$DOTFILES_DIR/symlinks/$(basename $file)" $file
+    else
+        if ! [ "$(readlink $file)" = "$DOTFILES_DIR/symlinks/$(basename $file)" ]; then
+            echo "Error: '$file' already exist but is not a link to the dotfiles, remove the file or move to another location and then rerun the script..."
+        fi
+    fi
+done < $SYMLINKS_CFG
+
+if ! gpg --list-key "$KEY_ID" > /dev/null 2>&1; then
+    echo "Signing key for secrets not found, please add and retry later..."
+    exit 1
+fi
+
+while read raw; do
+    file=$(eval echo $raw)
+    secret="$DOTFILES_DIR/secrets/$(basename $file).gpg"
+    if ! [[ -f $secret ]]; then
+        echo "'$secret' does not exist, skipping..."
+        continue
+    fi
+    # if [[ -f $file ]]; then
+    #     rm $file
+    # fi
+    gpg -o $file -d $secret
+    sudo chmod 600 $file
+done < $SECRETS_CFG
