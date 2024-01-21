@@ -4,4 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+assert_cmd = "2.0.13"
 clap = { version = "4.4.16", features = ["derive"] }
+dotenv = "0.15.0"
+pgp = "0.10.2"
+rpassword = "7.3.1"
+thiserror = "1.0.56"
