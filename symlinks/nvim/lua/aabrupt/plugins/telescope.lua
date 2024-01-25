@@ -43,16 +43,17 @@ return {
 
         local builtin = require('telescope.builtin')
 
-        vim.keymap.set("n", "<leader>?", builtin.oldfiles, { desc = 'Find recent files' })
-        vim.keymap.set("n", "<leader><space>", builtin.buffers,
-            { desc = 'Find existing buffers' })
+        vim.keymap.set("n", "<leader>tr", builtin.oldfiles, { desc = 'Find Recent Files' })
+        vim.keymap.set("n", "<leader>tb", builtin.buffers,
+            { desc = 'Find Existing Buffers' })
         vim.keymap.set("n", "<leader>/", function()
             require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
                 previewer = false,
             })
         end, { desc = '[/] Fuzzily search in current buffer' })
-        vim.keymap.set("n", "<leader>mc", ':silent Telescope cmdline<CR>', {noremap = true, desc = "Telescope CmdLine"})
-        vim.keymap.set("n", "<leader>gf", builtin.git_files, {desc="Find git files"})
+        vim.keymap.set("n", "<leader>tc", ':silent Telescope cmdline<CR>', {noremap = true, desc = "Telescope [C]mdLine"})
+        vim.keymap.set("n", "<leader>tg", builtin.git_files, {desc="Find Git Files"})
+        vim.keymap.set("n", "<leader>th", builtin.help_tags, {desc="Find Help Tags"})
     end
 
 }
