@@ -1,0 +1,2 @@
+[options]
+secret_key=~/.secret/secret.key
