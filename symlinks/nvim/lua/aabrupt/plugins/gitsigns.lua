@@ -12,7 +12,7 @@ return {
             on_attach = function(bufnr)
                 local gs = package.loaded.gitsigns
 
-                vim.keymap.set({ "n", "v" }, "<leader>gn", function()
+                vim.keymap.set({ "n", "v" }, "[", function()
                     if vim.wo.diff then
                         return ']c'
                     end
@@ -22,7 +22,7 @@ return {
                     return '<Ignore>'
                 end, { buffer = bufnr, expr = true, desc = "Jump To [N]ext Hunk" })
 
-                vim.keymap.set({ "n", "v" }, "<leader>gp", function()
+                vim.keymap.set({ "n", "v" }, "]", function()
                     if vim.wo.diff then
                         return "[c"
                     end

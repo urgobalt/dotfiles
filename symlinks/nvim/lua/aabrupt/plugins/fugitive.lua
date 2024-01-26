@@ -9,7 +9,7 @@ return {
             vim.cmd.Git({"pull --rebase"})
         end, {desc="Git [P]ull"})
         vim.keymap.set("n", "<leader>gt", function ()
-            vim.cmd.Git({"push -u origin"})
+            vim.cmd.Git({"push -u origin HEAD"})
         end, {desc="Push and Set Upstream"})
     end
 }
