@@ -1,6 +1,6 @@
 return {
     "ThePrimeagen/harpoon",
-    branch = "harpoon2",
+    -- branch = "harpoon2",
     dependencies = {
         "nvim-lua/plenary.nvim",
         "nvim-telescope/telescope.nvim"
@@ -10,30 +10,12 @@ return {
 
         harpoon:setup({})
 
-        local conf = require("telescope.config").values
-        local function toggle_telescope(harpoon_files)
-            local file_paths = {}
-            for _, item in ipairs(harpoon_files.items) do
-                table.insert(file_paths, item.value)
-            end
+        local ui = harpoon.ui
 
-            require("telescope.pickers").new({}, {
-                prompt_title = "Harpoon",
-                finder = require("telescope.finders").new_table({
-                    results = file_paths,
-                }),
-                previewer = conf.file_previewer({}),
-                sorter = conf.generic_sorter({}),
-            }):find()
-        end
-
-        vim.keymap.set("n", "<leader>ht", function() toggle_telescope(harpoon:list()) end,
-            { desc = "View Files Via [T]elescope" })
-        vim.keymap.set("n", "<leader>he", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
-            { desc = "Toggle Quick [E]ditor" })
-
+        vim.keymap.set("n", "<leader>hq", function() ui:toggle_quick_menu(harpoon:list()) end,
+            { desc = "[Q]uick Menu" })
         vim.keymap.set("n", "<leader>ha", function() harpoon:list():append() end,
-            { desc = "[A]ppend File To Harpoon List" })
+            { desc = "[A]ppend File List" })
 
         vim.keymap.set("n", "<leader>h1", function() harpoon:list():select(1) end, { desc = "Harpoon File [1]" })
         vim.keymap.set("n", "<leader>h2", function() harpoon:list():select(2) end, { desc = "Harpoon File [2]" })
