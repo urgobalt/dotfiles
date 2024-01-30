@@ -8,8 +8,8 @@ return {
         vim.keymap.set("n", "<leader>gd", function ()
             vim.cmd.Git({"pull --rebase"})
         end, {desc="Git [P]ull"})
-        vim.keymap.set("n", "<leader>gt", function ()
+        vim.keymap.set("n", "<leader>gU", function ()
             vim.cmd.Git({"push -u origin HEAD"})
-        end, {desc="Push and Set Upstream"})
+        end, {desc="Push and Set [U]pstream"})
     end
 }

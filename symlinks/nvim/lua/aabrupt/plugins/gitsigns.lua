@@ -43,7 +43,7 @@ return {
 
                 vim.keymap.set("n", "<leader>gS", gs.stage_buffer,
                     { buffer = bufnr, desc = "Git [S]tage Buffer" })
-                vim.keymap.set("n", "<leader>gR", gs.reset_buffer,
+                vim.keymap.set("n", "<leader>gR", gs.reset_buffer()
                     { buffer = bufnr, desc = "Git [R]eset Buffer" })
 
                 vim.keymap.set("n", "<leader>gb", function()
@@ -56,9 +56,7 @@ return {
                     gs.diffthis "~"
                 end, { buffer = bufnr, desc = "Git [D]iff Against Last Commit" })
 
-                require("which-key").register({
-                    ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
-                })
+                vim.keymap.set({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'select git hunk' })
             end
         })
     end
