@@ -43,7 +43,7 @@ return {
 
                 vim.keymap.set("n", "<leader>gS", gs.stage_buffer,
                     { buffer = bufnr, desc = "Git [S]tage Buffer" })
-                vim.keymap.set("n", "<leader>gR", gs.reset_buffer()
+                vim.keymap.set("n", "<leader>gR", gs.reset_buffer,
                     { buffer = bufnr, desc = "Git [R]eset Buffer" })
 
                 vim.keymap.set("n", "<leader>gb", function()
