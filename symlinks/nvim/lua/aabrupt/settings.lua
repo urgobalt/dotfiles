@@ -26,12 +26,15 @@ vim.o.completeopt = 'menuone,noselect'
 vim.o.mouse = ''
 vim.o.hlsearch = false
 
+-- Movement
+vim.opt.scrolloff = 999
+
 -- Netrw
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
 
--- GUI
+-- TUI
 vim.o.termguicolors = true
 vim.o.colorcolumn = "80,120"
 

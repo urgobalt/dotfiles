@@ -51,8 +51,10 @@ return {
     vim.keymap.set('n', '<leader>br', builtin.oldfiles, { desc = 'Find [R]ecent Files' })
     vim.keymap.set('n', '<leader>bb', builtin.buffers, { desc = 'Find [B]uffers' })
     vim.keymap.set('n', '<leader>bf', function()
-      builtin.find_files { cwd = utils.buffer_dir() }
-    end, { desc = 'Find [B]uffers' })
+      local cwd = vim.fn.expand '%:p:r'
+      cwd = cwd:gsub('^.+://', '')
+      builtin.find_files { cwd }
+    end, { desc = 'Find Relative [F]iles' })
     vim.keymap.set('n', '<leader>bg', builtin.git_files, { desc = 'Find [G]it Files' })
     vim.keymap.set('n', '<leader>bh', builtin.help_tags, { desc = 'Find [H]elp Tags' })
     vim.keymap.set('n', '<leader>bg', function()

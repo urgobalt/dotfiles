@@ -1,6 +1,5 @@
 return {
     "yutkat/confirm-quit.nvim",
-    event = "CmdlineEnter",
     config = function()
         local cq = require("confirm-quit")
         cq.setup({ overwrite_q_command = true })
