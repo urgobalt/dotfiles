@@ -50,4 +50,10 @@ return {
     end,
   },
   'mistricky/code-link.nvim',
+  {
+    'Saecki/crates.nvim',
+    config = function()
+      require('crates').setup()
+    end,
+  },
 }

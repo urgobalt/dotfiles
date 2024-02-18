@@ -48,7 +48,13 @@ return {
 
       ['ocamllsp'] = {},
       tsserver = {},
-      rust_analyzer = {},
+      rust_analyzer = {
+        ['rust-analyzer'] = {
+          rustfmt = {
+            extraArgs = { '--config', 'max_width=80' },
+          },
+        },
+      },
       lua_ls = {
         Lua = {
           workspace = { checkThirdParty = false },

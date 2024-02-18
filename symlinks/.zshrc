@@ -8,6 +8,7 @@ precmd_functions+=(keep_current_path)
 # Variables
 
 export EDITOR="nvim"
+export PASSWORD_STORE_ENABLE_EXTENSIONS="true"
 
 # ZSH Plugins
 
@@ -42,6 +43,12 @@ alias lt="ls -ahlTL 2 --git --git-ignore"
 alias opam-r="eval $(opam env)"
 alias rc-r="source ~/.zshrc"
 alias env-r="source ~/.zshenv"
+
+alias mount-secrets="sudo mount -t drvfs S: /mnt/secrets"
+
+# Evals
+
+eval "$(zoxide init zsh)"
 
 # Shell
 
