@@ -61,6 +61,11 @@ return {
           telemetry = { enable = false },
         },
       },
+      sqlls = {
+        root_dir = function()
+          return vim.loop.cwd()
+        end,
+      },
       intelephense = {
         stubs = {
           'bcmath',
