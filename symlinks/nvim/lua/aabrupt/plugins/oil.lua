@@ -9,7 +9,9 @@ return {
         'permissions',
       },
       delete_to_trash = true,
-      lsp_rename_autosave = true,
+      lsp_file_methods = {
+        autosave_changes = true,
+      },
       buf_options = {
         buflisted = false,
         bufhidden = 'hide',

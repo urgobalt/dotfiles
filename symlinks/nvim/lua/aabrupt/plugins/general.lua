@@ -23,6 +23,15 @@ return {
     end,
   },
   {
+    'folke/todo-comments.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+        config = function ()
+            require("todo-comments").setup()
+        end
+  },
+  {
     'echasnovski/mini.bufremove',
     config = function()
       require('mini.bufremove').setup()
@@ -53,7 +62,7 @@ return {
   {
     'Saecki/crates.nvim',
     config = function()
-      require('crates').setup()
+      require('crates').setup {}
     end,
   },
 }
