@@ -16,23 +16,32 @@ export PASSWORD_STORE_ENABLE_EXTENSIONS="true"
 
 plug "zsh-users/zsh-autosuggestions"
 plug "zsh-users/zsh-syntax-highlighting"
+plug "softmoth/zsh-vim-mode"
 plug "zsh-users/zsh-completions"
 plug "zsh-users/zsh-history-substring-search"
-# plug "jeffreytse/zsh-vi-mode"
 
 
 # Load and initialise completion system
 
-autoload -Uz compinit
+autoload -Uz +X compinit
 compinit
 
 # Completions
 [ -s "/home/aabrupt/.bun/_bun" ] && source "/home/aabrupt/.bun/_bun"
 
+# Case insensitive path-completion
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' menu select
+
 # Commands
 
 function take() {
-	mkdir "$1" -p && cd "$1"
+    mkdir "$1" -p && cd "$1"
+}
+
+function nvssh()
+{
+    nvim oil-ssh://$1/
 }
 
 alias ls="eza -m"
